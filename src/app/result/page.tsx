@@ -1,4 +1,3 @@
-import { QuizProvider } from '@/context/QuizContext';
 import ResultCard from '@/components/ResultCard';
 
 export default function ResultPage() {

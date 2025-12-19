@@ -1,4 +1,3 @@
-import { QuizProvider } from '@/context/QuizContext';
 import PhysicalQuiz from '@/components/PhysicalQuiz';
 
 export default function PhysicalFilterPage() {

@@ -1,4 +1,3 @@
-import { QuizProvider } from '@/context/QuizContext';
 import DecisionJourney from '@/components/DecisionJourney';
 
 export default function DecisionTreePage() {
