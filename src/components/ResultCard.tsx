@@ -231,36 +231,46 @@ export default function ResultCard() {
         </div>
       </motion.div>
 
-      {/* Starter Kit Section (Ads) */}
+      {/* Shop Essentials Section (Amazon Affiliate) */}
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
         className="mt-16 text-center"
       >
-        <h3 className="text-2xl font-bold text-foreground font-heading mb-8">
-          Recommended Essentials
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          {MOCK_PRODUCTS.map((product, idx) => (
-            <motion.div 
-              key={idx} 
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="bg-white p-6 rounded-3xl shadow-md border border-stone-50 flex items-center gap-6 transition-shadow text-left cursor-pointer group"
-            >
-              <div className="w-20 h-20 bg-stone-100 rounded-2xl flex items-center justify-center text-4xl group-hover:scale-110 transition-transform">
-                {product.image}
-              </div>
-              <div>
-                <h4 className="text-lg font-bold text-foreground">{product.name}</h4>
-                <p className="text-muted text-sm mb-2">Perfect for {bestMatch.name}s</p>
-                <span className="text-primary font-bold">{product.price}</span>
-              </div>
-              <div className="ml-auto bg-stone-100 p-2 rounded-full text-stone-400 group-hover:bg-primary group-hover:text-white transition-colors">
-                <ShoppingBag size={20} />
-              </div>
-            </motion.div>
-          ))}
+        <div className="bg-gradient-to-br from-[#FFF8F0] to-[#FFF4E6] p-10 rounded-[2.5rem] border border-orange-100 shadow-xl max-w-4xl mx-auto relative overflow-hidden">
+          {/* Decorative Elements */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-orange-200/20 rounded-full blur-2xl -z-10"></div>
+          <div className="absolute bottom-0 left-0 w-40 h-40 bg-yellow-200/20 rounded-full blur-2xl -z-10"></div>
+
+          <h3 className="text-3xl font-bold text-foreground font-heading mb-2">
+            Prepare for your {bestMatch.name}
+          </h3>
+          <p className="text-muted mb-8 max-w-xl mx-auto">
+            We've curated a list of essentials specifically for this breed. Get everything you need to welcome your new friend home.
+          </p>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+             {/* Icons */}
+             <div className="flex gap-4 text-3xl opacity-80 mb-4 md:mb-0">
+               <span title="Bed">🛏️</span>
+               <span title="Food">🦴</span>
+               <span title="Toys">🎾</span>
+             </div>
+
+             {/* Amazon CTA Button */}
+             <motion.a 
+               href={`https://www.amazon.com/s?k=${encodeURIComponent(bestMatch.name + " starter kit")}&tag=soulmatepaw01-20`}
+               target="_blank"
+               rel="noopener noreferrer"
+               whileTap={{ scale: 0.95 }}
+               whileHover={{ scale: 1.05 }}
+               transition={{ type: "spring", stiffness: 500, damping: 15 }}
+               className="inline-flex items-center gap-3 bg-[#FF9900] text-white text-lg font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl hover:bg-[#E68A00] transition-all"
+             >
+               Shop {bestMatch.name} Essentials 🛍️
+             </motion.a>
+          </div>
         </div>
       </motion.div>
 
