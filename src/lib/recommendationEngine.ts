@@ -1,4 +1,4 @@
-// Local MVP Recommendation Engine
+import { supabase } from './supabaseClient';
 
 export interface PetBreed {
   id: string;
@@ -152,10 +152,171 @@ const SCORES = {
   time: { low: 1, medium: 2, high: 3 },
 };
 
-export function findBestMatch(category: string, constraints: UserConstraints): PetBreed {
+function mapDbRowToPetBreed(row: any): PetBreed {
+  // Map min_space to space tag
+  // 'small' -> 'apartment' (closest fit for UI)
+  // 'medium' -> 'apartment' (fits in apartment)
+  // 'large' -> 'house'
+  let spaceTag: 'tiny' | 'apartment' | 'house' = 'house';
+  if (row.min_space === 'small') spaceTag = 'apartment';
+  else if (row.min_space === 'medium') spaceTag = 'apartment';
+  
+  return {
+    id: row.id,
+    name: row.breed_name,
+    category: row.category,
+    imageUrl: row.image_url,
+    description: row.description,
+    tags: {
+      space: spaceTag,
+      budget: row.budget_tier as 'low' | 'medium' | 'high',
+      time: row.energy_level === 'low' ? 'low' : (row.energy_level === 'medium' ? 'medium' : 'high') as 'low' | 'medium' | 'high'
+    }
+  };
+}
+
+export async function findBestMatch(category: string, constraints: UserConstraints): Promise<PetBreed> {
   console.log(`[Engine] Finding match for ${category}`, constraints);
 
-  // 1. Filter by Category
+  // 1. Supabase Query for Dogs
+  if (category === 'Dog') {
+    try {
+      let query = supabase.from('pet_breeds').select('*').eq('category', 'Dog');
+
+      // Space Logic
+      if (constraints.space === 'apartment' || constraints.space === 'tiny') {
+        query = query.in('min_space', ['small', 'medium']);
+      }
+      
+      // Energy Logic
+      if (constraints.time === 'low') {
+        query = query.eq('energy_level', 'low');
+      } else if (constraints.time === 'medium') {
+        query = query.in('energy_level', ['low', 'medium']);
+      }
+
+      // Budget Logic
+      if (constraints.budget === 'low') {
+        query = query.eq('budget_tier', 'low');
+      }
+
+      const { data, error } = await query.limit(1);
+
+      if (!error && data && data.length > 0) {
+        console.log('[Engine] Found exact match in DB:', data[0].breed_name);
+        return mapDbRowToPetBreed(data[0]);
+      }
+
+      // Fallback: Relaxed Filter (Remove Budget)
+      console.log('[Engine] No exact match, trying relaxed filter (ignoring budget)...');
+      let relaxedQuery = supabase.from('pet_breeds').select('*').eq('category', 'Dog');
+      
+      if (constraints.space === 'apartment' || constraints.space === 'tiny') {
+        relaxedQuery = relaxedQuery.in('min_space', ['small', 'medium']);
+      }
+      
+      if (constraints.time === 'low') {
+        relaxedQuery = relaxedQuery.eq('energy_level', 'low');
+      } else if (constraints.time === 'medium') {
+        relaxedQuery = relaxedQuery.in('energy_level', ['low', 'medium']);
+      }
+      
+      const { data: relaxedData } = await relaxedQuery.limit(1);
+      if (relaxedData && relaxedData.length > 0) {
+        return { ...mapDbRowToPetBreed(relaxedData[0]), isCompromise: true };
+      }
+      
+      // Ultimate Fallback: Any Dog that fits space
+      let anyQuery = supabase.from('pet_breeds').select('*').eq('category', 'Dog');
+       if (constraints.space === 'apartment' || constraints.space === 'tiny') {
+        anyQuery = anyQuery.in('min_space', ['small', 'medium']);
+      }
+      const { data: anyData } = await anyQuery.limit(1);
+      if (anyData && anyData.length > 0) {
+        return { ...mapDbRowToPetBreed(anyData[0]), isCompromise: true };
+      }
+
+    } catch (err) {
+      console.error('[Engine] Error querying Supabase for Dogs:', err);
+    }
+  }
+
+  // 2. Supabase Query for Cats (Phase 3 Step 2)
+  else if (category === 'Cat') {
+    try {
+      let query = supabase.from('pet_breeds').select('*').eq('category', 'Cat');
+
+      // --- Space Logic for Cats ---
+      // Most cats are fine in small space.
+      // But if user.space == 'tiny', filter OUT 'medium' space cats (e.g. Maine Coon, Bengal)
+      if (constraints.space === 'tiny') {
+        query = query.neq('min_space', 'medium');
+      }
+      
+      // --- Time/Attention Logic for Cats ---
+      // Time constraint maps to Attention/Grooming needs
+      if (constraints.time === 'low') {
+        // Busy owner: Filter OUT 'clingy' OR 'high-grooming'
+        // In Supabase, 'tags' is a text array. We want to ensure it DOES NOT contain 'clingy' AND DOES NOT contain 'high-grooming'
+        // Using PostgreSQL array operators via Supabase
+        // not.cs (contains) is what we want? No, Supabase has .not('tags', 'cs', '{clingy}')
+        // But we want to filter out if it has EITHER.
+        // Logic: NOT (tags contains 'clingy') AND NOT (tags contains 'high-grooming')
+        query = query.not('tags', 'cs', '{"clingy"}')
+                     .not('tags', 'cs', '{"high-grooming"}');
+      }
+      // If time is medium/high, we allow all (clingy/high-grooming are fine)
+
+      // --- Budget Logic for Cats ---
+      if (constraints.budget === 'low') {
+        query = query.eq('budget_tier', 'low');
+      }
+      // Medium budget can handle low/medium
+
+      const { data, error } = await query.limit(1);
+
+      if (!error && data && data.length > 0) {
+        console.log('[Engine] Found exact match in DB (Cat):', data[0].breed_name);
+        return mapDbRowToPetBreed(data[0]);
+      }
+
+      // Fallback: Relaxed Filter (Remove Budget)
+      console.log('[Engine] No exact match for Cat, trying relaxed filter (ignoring budget)...');
+      let relaxedQuery = supabase.from('pet_breeds').select('*').eq('category', 'Cat');
+
+      // Re-apply Space
+      if (constraints.space === 'tiny') {
+        relaxedQuery = relaxedQuery.neq('min_space', 'medium');
+      }
+
+      // Re-apply Time
+      if (constraints.time === 'low') {
+        relaxedQuery = relaxedQuery.not('tags', 'cs', '{"clingy"}')
+                                   .not('tags', 'cs', '{"high-grooming"}');
+      }
+
+      const { data: relaxedData } = await relaxedQuery.limit(1);
+      if (relaxedData && relaxedData.length > 0) {
+        return { ...mapDbRowToPetBreed(relaxedData[0]), isCompromise: true };
+      }
+
+      // Ultimate Fallback: Any Cat that fits space
+      console.log('[Engine] Still no match, trying space-only filter for Cat...');
+      let spaceQuery = supabase.from('pet_breeds').select('*').eq('category', 'Cat');
+      if (constraints.space === 'tiny') {
+        spaceQuery = spaceQuery.neq('min_space', 'medium');
+      }
+      const { data: spaceData } = await spaceQuery.limit(1);
+      if (spaceData && spaceData.length > 0) {
+        return { ...mapDbRowToPetBreed(spaceData[0]), isCompromise: true };
+      }
+
+    } catch (err) {
+      console.error('[Engine] Error querying Supabase for Cats:', err);
+    }
+  }
+
+  // 3. Legacy Local Logic (for other pets or if DB fails)
   // Note: We use flexible matching because Decision Tree outcomes (e.g., 'Hamster', 'Lizard') 
   // might map directly to categories in our DB or be subtypes.
   let candidates = PET_DATABASE.filter(p => 
@@ -165,16 +326,10 @@ export function findBestMatch(category: string, constraints: UserConstraints): P
 
   // If no direct category match (e.g. 'Small Mammal' vs specific 'Hamster'), try broader logic or default
   if (candidates.length === 0) {
-    // Try to find ANY pet if category is generic, or just fallback
     console.warn(`[Engine] No direct category match for ${category}. Checking subsets...`);
   }
 
-  // 2. Exact Filtering (Hard Constraints)
-  // Logic: 
-  // - Space: User Space >= Pet Space (e.g., House >= Apartment is OK)
-  // - Budget: User Budget >= Pet Budget (e.g., High >= Low is OK)
-  // - Time: User Time >= Pet Time (e.g., High >= Low is OK)
-  
+  // Exact Filtering (Hard Constraints)
   const exactMatches = candidates.filter(pet => {
     const spaceOk = SCORES.space[constraints.space] >= SCORES.space[pet.tags.space];
     const budgetOk = SCORES.budget[constraints.budget] >= SCORES.budget[pet.tags.budget];
@@ -186,9 +341,8 @@ export function findBestMatch(category: string, constraints: UserConstraints): P
     return exactMatches[0]; // Return best fit
   }
 
-  // 3. Fallback / Compromise
+  // Fallback / Compromise
   // If no exact match, return the "easiest" pet in that category (lowest requirements)
-  // Sort candidates by total requirement score
   candidates.sort((a, b) => {
     const scoreA = SCORES.space[a.tags.space] + SCORES.budget[a.tags.budget] + SCORES.time[a.tags.time];
     const scoreB = SCORES.space[b.tags.space] + SCORES.budget[b.tags.budget] + SCORES.time[b.tags.time];
@@ -201,4 +355,26 @@ export function findBestMatch(category: string, constraints: UserConstraints): P
 
   // Absolute fallback if category is empty in DB (shouldn't happen with good seed data)
   return PET_DATABASE[0]; 
+}
+
+// New helper for direct breed lookup by ID
+export async function getBreedById(id: string): Promise<PetBreed | null> {
+  // 1. Check Local DB first (Legacy)
+  const localMatch = PET_DATABASE.find(p => p.id === id);
+  if (localMatch) return localMatch;
+
+  // 2. Check Supabase
+  try {
+    const { data, error } = await supabase
+      .from('pet_breeds')
+      .select('*')
+      .eq('id', id)
+      .single();
+      
+    if (error || !data) return null;
+    return mapDbRowToPetBreed(data);
+  } catch (err) {
+    console.error('Error fetching breed by ID:', err);
+    return null;
+  }
 }

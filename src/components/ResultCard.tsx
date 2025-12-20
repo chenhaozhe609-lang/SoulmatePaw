@@ -3,9 +3,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useQuiz } from '@/context/QuizContext';
-import { ShoppingBag, ThumbsUp, ThumbsDown, RotateCcw, Loader2, Share2, Zap, Home, DollarSign, Sparkles } from 'lucide-react';
-import { findBestMatch, PetBreed } from '@/lib/recommendationEngine';
-import { useRouter } from 'next/navigation';
+import { ShoppingBag, ThumbsUp, ThumbsDown, RotateCcw, Share2, Zap, Home, DollarSign, Sparkles } from 'lucide-react';
+import { findBestMatch, PetBreed, getBreedById } from '@/lib/recommendationEngine';
+import { useRouter, useSearchParams } from 'next/navigation';
+import LoadingOverlay from './LoadingOverlay';
 
 const MOCK_PRODUCTS = [
   { name: 'Cozy Calming Bed', price: '$45', image: '🛏️' },
@@ -18,60 +19,82 @@ export default function ResultCard() {
   const [matchedBreed, setMatchedBreed] = useState<PetBreed | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const breedId = searchParams.get('breed_id');
   const isSaved = useRef(false);
 
   useEffect(() => {
-    // If no category selected (user refreshed or direct access), go home
-    if (!selectedCategory) {
-      router.push('/');
-      return;
-    }
+    async function init() {
+      // 1. If we have a breed_id in URL, use it (Shareable Link mode)
+      if (breedId) {
+        setLoading(true);
+        try {
+          const breed = await getBreedById(breedId);
+          if (breed) {
+            setMatchedBreed(breed);
+            setLoading(false);
+            return;
+          }
+        } catch (e) {
+          console.error('Error fetching breed by ID:', e);
+        }
+      }
 
-    async function fetchMatches() {
+      // 2. Fallback: If no breed_id, check Context (User Flow mode)
       if (selectedCategory && physicalConstraints) {
         setLoading(true);
         // Simulate async delay for dramatic effect
-        await new Promise(resolve => setTimeout(resolve, 800));
+        await new Promise(resolve => setTimeout(resolve, 3000));
         
-        const match = findBestMatch(selectedCategory, physicalConstraints);
-        setMatchedBreed(match);
-        setLoading(false);
-        
-        // Save to Database via API
-        if (!isSaved.current) {
-          isSaved.current = true;
-          try {
-            await fetch('/api/save-journey', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                personalityScores,
-                constraints: physicalConstraints,
-                decisionPath: selectedCategory,
-                recommendedResult: match,
-              }),
-            });
-          } catch (error) {
-            console.error('Error saving journey:', error);
+        try {
+          const match = await findBestMatch(selectedCategory, physicalConstraints);
+          setMatchedBreed(match);
+          
+          // Update URL to include breed_id for sharing
+          router.replace(`/result?breed_id=${match.id}`, { scroll: false });
+          
+          // Save to Database via API
+          if (!isSaved.current) {
+            isSaved.current = true;
+            try {
+              await fetch('/api/save-journey', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  personalityScores,
+                  constraints: physicalConstraints,
+                  decisionPath: selectedCategory,
+                  recommendedResult: match,
+                }),
+              });
+            } catch (error) {
+              console.error('Error saving journey:', error);
+            }
           }
+        } catch (error) {
+          console.error('Error finding match:', error);
+        } finally {
+          setLoading(false);
         }
+      } else if (!breedId) {
+        // If neither URL param nor Context is present, go home
+        router.push('/');
+      } else {
+        setLoading(false);
       }
     }
-    fetchMatches();
-  }, [selectedCategory, physicalConstraints, personalityScores, router]);
+    
+    init();
+  }, [breedId, selectedCategory, physicalConstraints, personalityScores, router]);
 
-  if (!selectedCategory) return null;
+  if (!matchedBreed && !loading) return null;
 
   if (loading || !matchedBreed) {
-    return (
-      <div className="min-h-[600px] flex flex-col justify-center items-center">
-        <Loader2 className="w-16 h-16 text-primary animate-spin mb-6" />
-        <h2 className="text-2xl font-bold text-foreground font-heading">Finalizing your match...</h2>
-      </div>
-    );
+    return <LoadingOverlay />;
   }
+
 
   const bestMatch = matchedBreed;
 
@@ -188,9 +211,14 @@ export default function ResultCard() {
              </div>
 
              <div className="flex gap-4">
-               <button className="flex-1 bg-secondary text-white font-bold py-4 rounded-xl shadow-lg hover:bg-[#D9A588] transition-colors flex items-center justify-center gap-2">
+               <motion.button 
+                 whileTap={{ scale: 0.95 }}
+                 whileHover={{ scale: 1.05 }}
+                 transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                 className="flex-1 bg-secondary text-white font-bold py-4 rounded-xl shadow-lg hover:bg-[#D9A588] transition-colors flex items-center justify-center gap-2"
+               >
                  <Share2 size={20} /> Share My Match
-               </button>
+               </motion.button>
              </div>
           </div>
         </div>
@@ -215,7 +243,11 @@ export default function ResultCard() {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {MOCK_PRODUCTS.map((product, idx) => (
-            <div key={idx} className="bg-white p-6 rounded-3xl shadow-md border border-stone-50 flex items-center gap-6 hover:shadow-lg transition-shadow text-left cursor-pointer group">
+            <motion.div 
+              key={idx} 
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="bg-white p-6 rounded-3xl shadow-md border border-stone-50 flex items-center gap-6 transition-shadow text-left cursor-pointer group"
+            >
               <div className="w-20 h-20 bg-stone-100 rounded-2xl flex items-center justify-center text-4xl group-hover:scale-110 transition-transform">
                 {product.image}
               </div>
@@ -227,31 +259,43 @@ export default function ResultCard() {
               <div className="ml-auto bg-stone-100 p-2 rounded-full text-stone-400 group-hover:bg-primary group-hover:text-white transition-colors">
                 <ShoppingBag size={20} />
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </motion.div>
 
       {/* Footer Actions */}
       <div className="mt-16 text-center pb-10">
-        <button 
+        <motion.button 
           onClick={handleStartOver}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
           className="text-muted hover:text-foreground font-bold flex items-center justify-center gap-2 mx-auto transition-colors"
         >
           <RotateCcw size={16} /> Start Over
-        </button>
+        </motion.button>
 
         {/* Feedback Section */}
         <div className="mt-8 pt-8 border-t border-stone-200 max-w-md mx-auto">
           <p className="text-sm text-muted mb-4">Was this match accurate?</p>
           {feedbackScore === null ? (
             <div className="flex justify-center gap-4">
-              <button onClick={() => handleFeedback(1)} className="p-3 rounded-full bg-white shadow-sm border border-stone-200 hover:border-red-300 hover:text-red-500 transition-colors">
+              <motion.button 
+                whileHover={{ scale: 1.2, rotate: -10 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => handleFeedback(1)} 
+                className="p-3 rounded-full bg-white shadow-sm border border-stone-200 hover:border-red-300 hover:text-red-500 transition-colors"
+              >
                 <ThumbsDown size={20} />
-              </button>
-              <button onClick={() => handleFeedback(5)} className="p-3 rounded-full bg-white shadow-sm border border-stone-200 hover:border-green-300 hover:text-green-500 transition-colors">
+              </motion.button>
+              <motion.button 
+                whileHover={{ scale: 1.2, rotate: 10 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => handleFeedback(5)} 
+                className="p-3 rounded-full bg-white shadow-sm border border-stone-200 hover:border-green-300 hover:text-green-500 transition-colors"
+              >
                 <ThumbsUp size={20} />
-              </button>
+              </motion.button>
             </div>
           ) : (
             <span className="text-green-600 font-bold text-sm bg-green-50 px-3 py-1 rounded-full">Thanks for your feedback!</span>

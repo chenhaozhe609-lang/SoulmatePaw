@@ -14,8 +14,19 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Pet Matchmaking",
-  description: "Find your perfect pet companion",
+  title: {
+    default: "AI Pet Soulmate Finder",
+    template: "%s | AI Pet Soulmate Finder",
+  },
+  description: "Stop guessing. Use psychology (Big 5) and AI to find the perfect dog or cat breed for your lifestyle. Free, scientific, and healing.",
+  keywords: ["pet finder", "dog breed quiz", "cat personality test", "AI pet match", "soulmate pet"],
+  openGraph: {
+    title: "AI Pet Soulmate Finder",
+    description: "Find your perfect pet companion based on personality and lifestyle.",
+    siteName: "PetMatch",
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({

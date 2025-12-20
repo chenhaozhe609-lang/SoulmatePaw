@@ -13,7 +13,7 @@ interface PersonalityQuizProps {
 }
 
 export default function PersonalityQuiz({ questions }: PersonalityQuizProps) {
-  const { setPersonalityAnswer, completePersonalityQuiz } = useQuiz();
+  const { setPersonalityAnswer, completePersonalityQuiz, selectedCategory } = useQuiz();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const router = useRouter();
@@ -33,17 +33,13 @@ export default function PersonalityQuiz({ questions }: PersonalityQuizProps) {
       }, 200);
     } else {
       completePersonalityQuiz();
-      // Use client-side routing instead of conditional rendering if desired, 
-      // but for now, ClientWrapper handles the view switching based on state.
-      // However, per instructions, we can add router.push if we were using separate routes.
-      // Since ClientWrapper is currently handling the flow on a single page (/match), 
-      // the state update (completePersonalityQuiz) will trigger the view change automatically.
-      // If we WANT separate routes, we should use router.push. 
-      // Let's assume the user wants to keep the Single Page Application (SPA) feel within /match for now 
-      // as configured in ClientWrapper.tsx.
-      // But wait, the user instructions explicitly asked for router.push('/decision-tree').
-      // This implies we should create these pages.
-      router.push('/decision-tree');
+      
+      // If category is already selected (Direct Access), skip Decision Tree
+      if (selectedCategory) {
+        router.push('/physical-filter');
+      } else {
+        router.push('/decision-tree');
+      }
     }
   };
 
@@ -113,10 +109,11 @@ export default function PersonalityQuiz({ questions }: PersonalityQuizProps) {
                   whileHover={{ 
                     backgroundColor: '#8DA399', 
                     color: '#ffffff',
-                    scale: 1.02,
+                    scale: 1.05, // Updated from 1.02
                     transition: { duration: 0.2, ease: "easeInOut" }
                   }}
-                  whileTap={{ scale: 0.98 }}
+                  whileTap={{ scale: 0.95 }} // Updated from 0.98
+                  transition={{ type: "spring", stiffness: 500, damping: 15 }} // Added spring
                   onClick={() => handleOptionSelect(option.text, option.value)}
                   className="w-full p-6 text-lg font-bold rounded-2xl shadow-sm hover:shadow-md text-left flex justify-between items-center group"
                 >
