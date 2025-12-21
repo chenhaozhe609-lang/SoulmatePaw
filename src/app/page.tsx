@@ -50,12 +50,20 @@ export default function LandingPage() {
           </div>
           <span className="text-2xl font-bold text-foreground tracking-tight font-heading">PetMatch</span>
         </div>
-        <button 
-          onClick={() => handleStartQuiz()}
-          className="hidden md:inline-flex items-center text-muted hover:text-secondary font-bold transition-colors"
-        >
-          Start Quiz
-        </button>
+        <div className="flex items-center gap-6">
+          <Link 
+            href="/breeds"
+            className="hidden md:inline-flex items-center text-muted hover:text-secondary font-bold transition-colors"
+          >
+            Browse Breeds
+          </Link>
+          <button 
+            onClick={() => handleStartQuiz()}
+            className="hidden md:inline-flex items-center bg-primary/10 text-primary hover:bg-primary/20 px-5 py-2 rounded-full font-bold transition-colors"
+          >
+            Start Quiz
+          </button>
+        </div>
       </nav>
 
       {/* Hero Section */}
@@ -270,13 +278,6 @@ export default function LandingPage() {
           </div>
         </motion.section>
       </main>
-
-      {/* Footer */}
-      <footer className="w-full max-w-7xl mx-auto px-6 py-12 text-center">
-        <p className="text-muted text-sm font-medium">
-          Made with <Heart size={16} className="inline text-secondary mx-1 fill-current" /> for pets worldwide.
-        </p>
-      </footer>
     </div>
   );
 }

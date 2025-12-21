@@ -3,6 +3,7 @@ import { Inter, Nunito } from "next/font/google";
 import "./globals.css";
 import { QuizProvider } from "@/context/QuizContext";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -37,10 +38,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${nunito.variable} antialiased min-h-screen`}>
+      <body className={`${inter.variable} ${nunito.variable} antialiased min-h-screen flex flex-col`}>
         <QuizProvider>
-          {children}
+          <div className="flex-grow w-full">
+            {children}
+          </div>
         </QuizProvider>
+        <Footer />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
       </body>
     </html>

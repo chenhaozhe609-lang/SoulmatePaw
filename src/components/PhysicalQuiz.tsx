@@ -73,6 +73,13 @@ export default function PhysicalQuiz() {
 
   // Icons/Emojis mapping helper (could be more robust, but hardcoded for now)
   const getIconForOption = (val: string | number) => {
+    // Time (Check question ID first to handle overlapping values)
+    if (currentQuestion.id === 'q_time') {
+      if (val === 'low') return '⚡';
+      if (val === 'medium') return '🕰️';
+      if (val === 'high') return '🏠';
+    }
+
     // Budget
     if (val === 'low') return '💰';
     if (val === 'medium') return '💰💰';
@@ -81,10 +88,13 @@ export default function PhysicalQuiz() {
     if (val === 'apartment') return '🏢';
     if (val === 'house_small') return '🏡';
     if (val === 'house_large') return '🏰';
-    // Time
-    // Using strict equality check for values from questions.ts
-    // Note: In questions.ts, time values are also 'low', 'medium', 'high'
-    // This overlaps with budget, but contextually fine for emoji
+    
+    // Dealbreakers
+    if (val === 'fur') return '🧹';
+    if (val === 'bugs/mice') return '🐁';
+    if (val === 'noise') return '📢';
+    if (val === 'none') return '✨';
+
     return '✨'; 
   };
 

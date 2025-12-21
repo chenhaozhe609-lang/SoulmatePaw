@@ -1,7 +1,20 @@
 import { MetadataRoute } from 'next'
- 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://pet-match.vercel.app'; // Placeholder domain
+import { supabase } from '@/lib/supabaseClient'
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const baseUrl = 'https://soulmatepaw.com';
+
+  // Fetch all breeds
+  const { data: breeds } = await supabase
+    .from('pet_breeds')
+    .select('breed_name');
+
+  const breedEntries: MetadataRoute.Sitemap = (breeds || []).map((breed) => ({
+    url: `${baseUrl}/breed/${breed.breed_name.toLowerCase().replace(/\s+/g, '-')}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.7,
+  }));
 
   return [
     {
@@ -22,5 +35,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/breeds`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    ...breedEntries,
   ]
 }
