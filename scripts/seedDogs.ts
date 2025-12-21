@@ -229,7 +229,7 @@ const dogs = [
     budget_tier: 'medium',
     tags: ['smart', 'work-oriented', 'exuberant', 'agile'],
     description: 'Lean, tough, and ranch-ready. Aussies have an irresistible impulse to herd anything that moves and need high activity.',
-    image_url: 'https://images.unsplash.com/photo-1558945657-484aa38065ec?auto=format&fit=crop&w=800&q=80'
+    image_url: 'https://images.unsplash.com/photo-1590419690008-905815c4759a?auto=format&fit=crop&w=800&q=80'
   }
 ];
 

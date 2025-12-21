@@ -38,6 +38,9 @@ export default async function BreedsPage() {
           <p className="text-xl text-muted max-w-2xl mx-auto">
             Discover the personality, care needs, and unique traits of our furry friends.
           </p>
+          <p className="text-sm text-stone-400 mt-4 italic">
+            * Detailed breed guides for other pet categories (Birds, Reptiles, Small Pets) are on the way!
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
