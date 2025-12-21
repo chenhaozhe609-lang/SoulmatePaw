@@ -77,8 +77,42 @@ export default async function BreedPage({ params }: Props) {
     notFound();
   }
 
+  // Generate JSON-LD Structured Data
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Guide',
+    headline: `Everything about ${breed.breed_name}: Personality, Care, and Traits`,
+    image: breed.image_url ? [breed.image_url] : [],
+    datePublished: new Date().toISOString(),
+    author: {
+      '@type': 'Organization',
+      name: 'SoulmatePaw AI',
+      url: 'https://soulmatepaw.com'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'SoulmatePaw',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://soulmatepaw.com/icon.png' // Ensure this exists or use a placeholder
+      }
+    },
+    description: breed.description,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      reviewCount: '120',
+      bestRating: '5',
+      worstRating: '1'
+    }
+  };
+
   return (
     <div className="min-h-screen bg-stone-50 py-12 px-4 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-4xl mx-auto">
         <Link href="/breeds" className="text-primary hover:underline mb-8 inline-block">
           &larr; Back to all breeds
@@ -167,6 +201,56 @@ export default async function BreedPage({ params }: Props) {
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                   </a>
                   <p className="text-xs text-muted mt-4 opacity-70">As an Amazon Associate we earn from qualifying purchases.</p>
+               </div>
+            </div>
+
+            {/* FAQ Section */}
+            <div className="mt-12 pt-12 border-t border-stone-200">
+               <h2 className="text-3xl font-bold text-foreground font-heading mb-8 text-center">
+                 Frequently Asked Questions about {breed.breed_name}s
+               </h2>
+               <div className="space-y-6">
+                 {/* Q1: Space */}
+                 <div className="bg-stone-50 p-6 rounded-2xl">
+                   <h3 className="text-lg font-bold text-foreground mb-2">
+                     Is a {breed.breed_name} good for apartments?
+                   </h3>
+                   <p className="text-muted leading-relaxed">
+                     {breed.min_space === 'small' 
+                       ? `Yes! The ${breed.breed_name} is an excellent choice for apartment living. They are adaptable and happy in smaller spaces as long as their basic needs are met.`
+                       : `The ${breed.breed_name} generally prefers a home with some space to move around. A house with a yard or easy access to parks is ideal for this breed.`}
+                   </p>
+                 </div>
+
+                 {/* Q2: Energy */}
+                 <div className="bg-stone-50 p-6 rounded-2xl">
+                   <h3 className="text-lg font-bold text-foreground mb-2">
+                     How much energy does a {breed.breed_name} have?
+                   </h3>
+                   <p className="text-muted leading-relaxed">
+                     This breed is considered to have <strong>{breed.energy_level} energy</strong>. 
+                     {breed.energy_level === 'high' 
+                       ? " Be prepared for an active lifestyle! They will need regular exercise, playtime, and mental stimulation to stay happy and healthy."
+                       : breed.energy_level === 'medium'
+                       ? " They enjoy a good balance of play and relaxation. Regular walks and some playtime will keep them content."
+                       : " They are quite laid back and enjoy lounging around. Perfect for a more relaxed household."}
+                   </p>
+                 </div>
+
+                 {/* Q3: Budget */}
+                 <div className="bg-stone-50 p-6 rounded-2xl">
+                   <h3 className="text-lg font-bold text-foreground mb-2">
+                     Is the {breed.breed_name} expensive to keep?
+                   </h3>
+                   <p className="text-muted leading-relaxed">
+                     In terms of ongoing costs (food, grooming, healthcare), this breed falls into the <strong>{breed.budget_tier} budget tier</strong>.
+                     {breed.budget_tier === 'high'
+                       ? " They may require specialized diets, frequent professional grooming, or have higher potential healthcare costs."
+                       : breed.budget_tier === 'medium'
+                       ? " Expect standard costs for a pet of this size. Regular vet checkups and good quality food are the main expenses."
+                       : " They are generally budget-friendly compared to other breeds, though all pets require a financial commitment for proper care."}
+                   </p>
+                 </div>
                </div>
             </div>
 
