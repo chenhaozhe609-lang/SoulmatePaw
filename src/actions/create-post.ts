@@ -4,13 +4,13 @@ import { supabase } from '@/lib/supabaseClient';
 import OpenAI from 'openai';
 import { revalidatePath } from 'next/cache';
 
-// Initialize DeepSeek client
-const openai = new OpenAI({
-  apiKey: process.env.DEEPSEEK_API_KEY,
-  baseURL: 'https://api.deepseek.com',
-});
-
 export async function createPost(formData: FormData) {
+  // Initialize DeepSeek client
+  const openai = new OpenAI({
+    apiKey: process.env.DEEPSEEK_API_KEY,
+    baseURL: 'https://api.deepseek.com',
+  });
+
   const content = formData.get('content') as string;
   const imageUrl = formData.get('image_url') as string;
   // In a real app, we'd get the user ID from the session

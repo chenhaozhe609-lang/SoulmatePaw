@@ -8,12 +8,6 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-// Initialize DeepSeek client (using OpenAI SDK)
-const openai = new OpenAI({
-  apiKey: process.env.DEEPSEEK_API_KEY,
-  baseURL: 'https://api.deepseek.com',
-});
-
 interface RequestBody {
   petType: 'dog' | 'cat';
   gender: 'boy' | 'girl' | 'unisex';
@@ -27,6 +21,12 @@ interface GeneratedName {
 }
 
 export async function POST(req: Request) {
+  // Initialize DeepSeek client inside the request handler
+  const openai = new OpenAI({
+    apiKey: process.env.DEEPSEEK_API_KEY,
+    baseURL: 'https://api.deepseek.com',
+  });
+
   try {
     const body: RequestBody = await req.json();
     const { petType, gender, style, description } = body;
