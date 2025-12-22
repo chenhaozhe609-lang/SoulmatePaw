@@ -80,30 +80,24 @@ export default async function BreedPage({ params }: Props) {
   // Generate JSON-LD Structured Data
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Guide',
-    headline: `Everything about ${breed.breed_name}: Personality, Care, and Traits`,
+    '@type': 'Product',
+    name: breed.breed_name,
     image: breed.image_url ? [breed.image_url] : [],
-    datePublished: new Date().toISOString(),
-    author: {
-      '@type': 'Organization',
-      name: 'SoulmatePaw AI',
-      url: 'https://soulmatepaw.com'
+    description: `Everything you need to know about the ${breed.breed_name}. ${breed.description}`,
+    brand: {
+      '@type': 'Brand',
+      name: 'SoulmatePaw'
     },
-    publisher: {
-      '@type': 'Organization',
-      name: 'SoulmatePaw',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://soulmatepaw.com/icon.png' // Ensure this exists or use a placeholder
-      }
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock'
     },
-    description: breed.description,
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.8',
-      reviewCount: '120',
-      bestRating: '5',
-      worstRating: '1'
+      reviewCount: '120'
     }
   };
 
