@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabaseClient';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
+import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'All Pet Breeds | SoulmatePaw',
@@ -32,6 +33,9 @@ export default async function BreedsPage() {
     <div className="min-h-screen bg-stone-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
+          <Link href="/" className="inline-flex items-center gap-2 text-stone-400 hover:text-stone-600 mb-6 transition-colors font-medium">
+             <ArrowLeft size={16} /> Back to Home
+          </Link>
           <h1 className="text-4xl md:text-5xl font-extrabold text-foreground font-heading mb-4">
             Explore Pet Breeds
           </h1>

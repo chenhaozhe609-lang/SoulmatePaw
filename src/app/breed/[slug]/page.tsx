@@ -3,6 +3,8 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import ContextualReviews from '@/components/reviews/ContextualReviews';
+import { ArrowLeft } from 'lucide-react';
 
 export const revalidate = 3600; // Revalidate every hour
 
@@ -63,9 +65,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const title = `${breed.breed_name} 101: Personality, Size & Reviews | SoulmatePaw`;
+  const description = `Discover if the ${breed.breed_name} is right for you. Learn about their ${breed.energy_level} energy, ${breed.min_space === 'small' ? 'apartment-friendly' : 'space-loving'} nature, and care needs.`;
+
   return {
-    title: `${breed.breed_name} Personality & Care Guide | SoulmatePaw`,
-    description: `Learn everything about the ${breed.breed_name}. ${breed.description.slice(0, 150)}...`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: breed.image_url ? [{ url: breed.image_url }] : [],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: breed.image_url ? [breed.image_url] : [],
+    },
   };
 }
 
@@ -108,8 +125,8 @@ export default async function BreedPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="max-w-4xl mx-auto">
-        <Link href="/breeds" className="text-primary hover:underline mb-8 inline-block">
-          &larr; Back to all breeds
+        <Link href="/breeds" className="inline-flex items-center gap-2 text-stone-400 hover:text-stone-600 mb-8 transition-colors font-medium">
+          <ArrowLeft size={16} /> Back to all breeds
         </Link>
         
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
@@ -246,6 +263,11 @@ export default async function BreedPage({ params }: Props) {
                    </p>
                  </div>
                </div>
+            </div>
+
+            {/* Reviews Section */}
+            <div className="mt-12 pt-12 border-t border-stone-200">
+              <ContextualReviews breed={breed.breed_name} />
             </div>
 
             {breed.affiliate_link && (

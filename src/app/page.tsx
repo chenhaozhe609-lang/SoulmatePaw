@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, Variants } from 'framer-motion';
-import { Heart, Brain, ArrowRight, Home, Dog, Cat, Sparkles, CheckCircle, HelpCircle, ChevronDown } from 'lucide-react';
+import { Heart, Brain, ArrowRight, Home, Dog, Cat, Sparkles, CheckCircle, HelpCircle, ChevronDown, Users, MessageCircleHeart, BookOpen } from 'lucide-react';
 import { useQuiz } from '@/context/QuizContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -42,7 +42,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background font-sans text-main">
-      {/* Navbar */}
+        {/* Navbar */}
       <nav className="w-full max-w-7xl mx-auto px-6 py-8 flex justify-between items-center z-50 relative">
         <div className="flex items-center gap-3">
           <div className="bg-secondary text-white p-3 rounded-2xl shadow-sm">
@@ -52,10 +52,16 @@ export default function LandingPage() {
         </div>
         <div className="flex items-center gap-6">
           <Link 
-            href="/breeds"
-            className="hidden md:inline-flex items-center text-muted hover:text-secondary font-bold transition-colors"
+            href="/tools/name-generator"
+            className="hidden md:inline-flex items-center bg-stone-100 text-stone-600 hover:bg-stone-200 px-5 py-2 rounded-full font-bold transition-colors"
           >
-            Browse Breeds
+            Naming
+          </Link>
+          <Link 
+            href="/animunity"
+            className="hidden md:inline-flex items-center bg-blue-50 text-blue-500 hover:bg-blue-100 px-5 py-2 rounded-full font-bold transition-colors"
+          >
+            Community
           </Link>
           <button 
             onClick={() => handleStartQuiz()}
@@ -104,53 +110,88 @@ export default function LandingPage() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 500, damping: 15 }}
               onClick={() => handleStartQuiz()}
-              className="group inline-flex items-center justify-center gap-3 bg-secondary text-white text-lg font-bold py-5 px-12 rounded-full hover:bg-[#D9A588] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+              className="group inline-flex items-center justify-center gap-3 bg-secondary text-white text-xl font-bold py-6 px-16 rounded-full hover:bg-[#D9A588] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden"
             >
-              I'm not sure – Help me choose! ✨
-              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              Start Soulmate Quiz ✨
             </motion.button>
 
-            {/* Direct Access Section */}
+            {/* Direct Browse Pills */}
             <div className="mt-8">
-              <p className="text-muted mb-6 font-medium text-lg">Or find your perfect match within:</p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                {/* Dog Option */}
-                <motion.button 
-                  whileTap={{ scale: 0.95 }}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 15 }}
+              <p className="text-stone-400 text-sm font-medium mb-4 uppercase tracking-wider">Or browse directly by species:</p>
+              <div className="flex flex-wrap justify-center gap-4">
+                {/* Dog Pill */}
+                <button
                   onClick={() => handleStartQuiz('Dog')}
-                  className="group flex items-center gap-4 bg-white px-8 py-6 rounded-3xl shadow-md border border-stone-100 hover:shadow-xl hover:border-secondary/20 transition-all hover:-translate-y-1 w-full sm:w-auto"
+                  className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-6 py-3 rounded-full border border-stone-200 hover:border-secondary hover:bg-white transition-all hover:scale-105 shadow-sm text-stone-700 font-bold group"
                 >
-                  <div className="bg-orange-50 p-3 rounded-2xl text-secondary group-hover:scale-110 transition-transform">
-                    <Dog size={32} />
-                  </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-bold text-foreground">Dog Breeds</h3>
-                    <p className="text-sm text-muted">Loyal companions</p>
-                  </div>
-                </motion.button>
+                  <span className="text-xl">🐶</span>
+                  Dog Breeds
+                  <ArrowRight size={14} className="text-stone-400 group-hover:text-secondary -ml-1 opacity-0 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                </button>
 
-                {/* Cat Option */}
-                <motion.button 
-                  whileTap={{ scale: 0.95 }}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                {/* Cat Pill */}
+                <button
                   onClick={() => handleStartQuiz('Cat')}
-                  className="group flex items-center gap-4 bg-white px-8 py-6 rounded-3xl shadow-md border border-stone-100 hover:shadow-xl hover:border-primary/20 transition-all hover:-translate-y-1 w-full sm:w-auto"
+                  className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-6 py-3 rounded-full border border-stone-200 hover:border-primary hover:bg-white transition-all hover:scale-105 shadow-sm text-stone-700 font-bold group"
                 >
-                  <div className="bg-blue-50 p-3 rounded-2xl text-primary group-hover:scale-110 transition-transform">
-                    <Cat size={32} />
-                  </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-bold text-foreground">Cat Breeds</h3>
-                    <p className="text-sm text-muted">Independent spirits</p>
-                  </div>
-                </motion.button>
+                  <span className="text-xl">🐱</span>
+                  Cat Breeds
+                  <ArrowRight size={14} className="text-stone-400 group-hover:text-primary -ml-1 opacity-0 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                </button>
               </div>
             </div>
           </motion.div>
         </motion.div>
+
+        {/* Explore Tools Section (3 Columns) */}
+        <motion.section 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="w-full max-w-7xl mx-auto px-4 py-24"
+        >
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+             
+             {/* Card 1: Animunity */}
+             <Link href="/animunity" className="group relative bg-white/60 backdrop-blur-md rounded-3xl p-10 border border-white/50 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center text-center">
+                <div className="mb-6 p-4 bg-primary/10 rounded-full text-primary group-hover:scale-110 transition-transform">
+                   <MessageCircleHeart size={40} />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground font-heading mb-3">Animunity</h3>
+                <p className="text-muted text-lg mb-8 leading-relaxed">Join the Conversation. Share stories with a supportive community.</p>
+                <div className="mt-auto text-primary font-bold flex items-center gap-2 group-hover:gap-3 transition-all">
+                   Explore <ArrowRight size={18} />
+                </div>
+             </Link>
+
+             {/* Card 2: Name Generator */}
+             <Link href="/tools/name-generator" className="group relative bg-white/60 backdrop-blur-md rounded-3xl p-10 border border-white/50 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center text-center">
+                <div className="mb-6 p-4 bg-secondary/10 rounded-full text-secondary group-hover:scale-110 transition-transform">
+                   <Sparkles size={40} />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground font-heading mb-3">Name Generator</h3>
+                <p className="text-muted text-lg mb-8 leading-relaxed">Find the Perfect Name. AI-inspired ideas for your new friend.</p>
+                <div className="mt-auto text-secondary font-bold flex items-center gap-2 group-hover:gap-3 transition-all">
+                   Explore <ArrowRight size={18} />
+                </div>
+             </Link>
+
+             {/* Card 3: Breed Reviews */}
+             <Link href="/breeds" className="group relative bg-white/60 backdrop-blur-md rounded-3xl p-10 border border-white/50 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center text-center">
+                <div className="mb-6 p-4 bg-blue-50 rounded-full text-blue-500 group-hover:scale-110 transition-transform">
+                   <BookOpen size={40} />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground font-heading mb-3">Breed Guides</h3>
+                <p className="text-muted text-lg mb-8 leading-relaxed">Expert Insights. Deep dive into personality & care needs.</p>
+                <div className="mt-auto text-blue-600 font-bold flex items-center gap-2 group-hover:gap-3 transition-all">
+                   Explore <ArrowRight size={18} />
+                </div>
+             </Link>
+
+           </div>
+        </motion.section>
 
         {/* Section 1: How it Works */}
         <motion.section 

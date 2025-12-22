@@ -8,9 +8,6 @@ export default function Footer() {
         <p className="text-muted text-sm font-medium">
           Made with <Heart size={16} className="inline text-secondary mx-1 fill-current" /> for pets worldwide.
         </p>
-        <Link href="/breeds" className="text-sm text-muted hover:text-primary transition-colors font-medium">
-          Browse all Breeds
-        </Link>
       </div>
     </footer>
   );

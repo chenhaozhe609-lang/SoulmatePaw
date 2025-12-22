@@ -13,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}/breed/${breed.breed_name.toLowerCase().replace(/\s+/g, '-')}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
-    priority: 0.7,
+    priority: 0.8,
   }));
 
   return [
@@ -40,6 +40,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/tools/name-generator`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
     ...breedEntries,
   ]
