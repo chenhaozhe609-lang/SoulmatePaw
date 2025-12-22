@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Suspense } from 'react';
 import { createPost } from '@/actions/create-post';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, MessageCircle, Send, Image as ImageIcon, ShieldCheck, AlertCircle, Loader2, Edit3, TrendingUp, Camera, Stethoscope, GraduationCap, Utensils, Share2, ArrowLeft } from 'lucide-react';
@@ -10,6 +10,14 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 export default function AnimunityPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center min-h-screen">Loading...</div>}>
+      <AnimunityContent />
+    </Suspense>
+  );
+}
+
+function AnimunityContent() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [trendingPosts, setTrendingPosts] = useState<Partial<Post>[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
