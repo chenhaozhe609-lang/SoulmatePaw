@@ -4,6 +4,7 @@ import "./globals.css";
 import { QuizProvider } from "@/context/QuizContext";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI Pet Soulmate Finder",
     description: "Find your perfect pet companion based on personality and lifestyle.",
-    siteName: "PetMatch",
+    siteName: "SoulmatePaw",
     locale: 'en_US',
     type: 'website',
   },
@@ -43,7 +44,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${nunito.variable} antialiased min-h-screen flex flex-col`}>
         <QuizProvider>
-          <div className="flex-grow w-full">
+          <Navbar />
+          <div className="flex-grow w-full pt-20">
             {children}
           </div>
         </QuizProvider>
