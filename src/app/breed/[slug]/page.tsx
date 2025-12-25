@@ -197,6 +197,29 @@ export default async function BreedPage({ params }: Props) {
               </div>
             </div>
 
+            {/* Financial Reality Check CTA */}
+            <div className="mt-12 pt-8 border-t border-stone-100">
+               <div className="bg-[#FDFBF7] rounded-3xl p-8 border border-[#E6D5B8] shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="text-left flex-1">
+                     <span className="bg-red-100 text-red-600 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wider mb-2 inline-block">
+                        Reality Check
+                     </span>
+                     <h3 className="text-2xl font-bold text-foreground mb-2 font-heading">Can you afford a {breed.breed_name}?</h3>
+                     <p className="text-muted leading-relaxed">
+                        Financial surprises are a leading cause of pet surrender. 
+                        Calculate the true cost of ownership based on 2025 market data for {breed.min_space === 'small' ? 'small' : breed.min_space === 'medium' ? 'medium' : 'large'} breeds.
+                     </p>
+                  </div>
+                  <Link 
+                    href={`/tools/cost-calculator?size=${breed.min_space === 'small' ? 'small' : breed.min_space === 'medium' ? 'medium' : 'large'}&breed=${encodeURIComponent(breed.breed_name)}`}
+                    className="whitespace-nowrap inline-flex items-center gap-2 bg-foreground text-white px-6 py-4 rounded-xl font-bold hover:bg-black transition-all shadow-md hover:-translate-y-1"
+                  >
+                     <span className="text-2xl">💰</span>
+                     <span>Run Calculator &rarr;</span>
+                  </Link>
+               </div>
+            </div>
+
             <div className="mt-12 pt-8 border-t border-stone-100">
                <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl p-8 text-center border border-primary/10 shadow-sm">
                   <h3 className="text-2xl font-bold text-foreground mb-3 font-heading">Ready to welcome a {breed.breed_name}?</h3>

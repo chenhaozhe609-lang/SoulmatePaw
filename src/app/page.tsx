@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, Variants } from 'framer-motion';
-import { Heart, Brain, ArrowRight, Home, Dog, Cat, Sparkles, CheckCircle, HelpCircle, ChevronDown, Users, MessageCircleHeart, BookOpen } from 'lucide-react';
+import { Heart, Brain, ArrowRight, Home, Dog, Cat, Sparkles, CheckCircle, HelpCircle, ChevronDown, Users, MessageCircleHeart, BookOpen, DollarSign } from 'lucide-react';
 import { useQuiz } from '@/context/QuizContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -152,41 +152,53 @@ export default function LandingPage() {
           transition={{ duration: 0.8 }}
           className="w-full max-w-7xl mx-auto px-4 py-24"
         >
-           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
              
              {/* Card 1: Animunity */}
-             <Link href="/animunity" className="group relative bg-white/60 backdrop-blur-md rounded-3xl p-10 border border-white/50 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center text-center">
+             <Link href="/animunity" className="group relative bg-white/60 backdrop-blur-md rounded-3xl p-8 border border-white/50 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center text-center">
                 <div className="mb-6 p-4 bg-primary/10 rounded-full text-primary group-hover:scale-110 transition-transform">
-                   <MessageCircleHeart size={40} />
+                   <MessageCircleHeart size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground font-heading mb-3">Animunity</h3>
-                <p className="text-muted text-lg mb-8 leading-relaxed">Join the Conversation. Share stories with a supportive community.</p>
-                <div className="mt-auto text-primary font-bold flex items-center gap-2 group-hover:gap-3 transition-all">
-                   Explore <ArrowRight size={18} />
+                <h3 className="text-xl font-bold text-foreground font-heading mb-3">Animunity</h3>
+                <p className="text-muted text-sm mb-6 leading-relaxed">Join the Conversation. Share stories with a supportive community.</p>
+                <div className="mt-auto text-primary font-bold flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                   Explore <ArrowRight size={16} />
                 </div>
              </Link>
 
              {/* Card 2: Name Generator */}
-             <Link href="/tools/name-generator" className="group relative bg-white/60 backdrop-blur-md rounded-3xl p-10 border border-white/50 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center text-center">
+             <Link href="/tools/name-generator" className="group relative bg-white/60 backdrop-blur-md rounded-3xl p-8 border border-white/50 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center text-center">
                 <div className="mb-6 p-4 bg-secondary/10 rounded-full text-secondary group-hover:scale-110 transition-transform">
-                   <Sparkles size={40} />
+                   <Sparkles size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground font-heading mb-3">Name Generator</h3>
-                <p className="text-muted text-lg mb-8 leading-relaxed">Find the Perfect Name. AI-inspired ideas for your new friend.</p>
-                <div className="mt-auto text-secondary font-bold flex items-center gap-2 group-hover:gap-3 transition-all">
-                   Explore <ArrowRight size={18} />
+                <h3 className="text-xl font-bold text-foreground font-heading mb-3">Name Generator</h3>
+                <p className="text-muted text-sm mb-6 leading-relaxed">Find the Perfect Name. AI-inspired ideas for your new friend.</p>
+                <div className="mt-auto text-secondary font-bold flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                   Explore <ArrowRight size={16} />
                 </div>
              </Link>
 
              {/* Card 3: Breed Reviews */}
-             <Link href="/breeds" className="group relative bg-white/60 backdrop-blur-md rounded-3xl p-10 border border-white/50 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center text-center">
+             <Link href="/breeds" className="group relative bg-white/60 backdrop-blur-md rounded-3xl p-8 border border-white/50 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center text-center">
                 <div className="mb-6 p-4 bg-blue-50 rounded-full text-blue-500 group-hover:scale-110 transition-transform">
-                   <BookOpen size={40} />
+                   <BookOpen size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground font-heading mb-3">Breed Guides</h3>
-                <p className="text-muted text-lg mb-8 leading-relaxed">Expert Insights. Deep dive into personality & care needs.</p>
-                <div className="mt-auto text-blue-600 font-bold flex items-center gap-2 group-hover:gap-3 transition-all">
-                   Explore <ArrowRight size={18} />
+                <h3 className="text-xl font-bold text-foreground font-heading mb-3">Breed Guides</h3>
+                <p className="text-muted text-sm mb-6 leading-relaxed">Expert Insights. Deep dive into personality & care needs.</p>
+                <div className="mt-auto text-blue-600 font-bold flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                   Explore <ArrowRight size={16} />
+                </div>
+             </Link>
+
+             {/* Card 4: Cost Calculator */}
+             <Link href="/tools/cost-calculator" className="group relative bg-white/60 backdrop-blur-md rounded-3xl p-8 border border-white/50 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center text-center">
+                <div className="mb-6 p-4 bg-primary/10 rounded-full text-primary group-hover:scale-110 transition-transform">
+                   <DollarSign size={32} />
+                </div>
+                <h3 className="text-xl font-bold text-foreground font-heading mb-3">Cost Calculator</h3>
+                <p className="text-muted text-sm mb-6 leading-relaxed">Plan your budget. Estimate the true cost of ownership.</p>
+                <div className="mt-auto text-primary font-bold flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                   Explore <ArrowRight size={16} />
                 </div>
              </Link>
 

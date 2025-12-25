@@ -1,0 +1,940 @@
+{
+  "cat": {
+    "budget": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Shelter Adoption Fee",
+          "amount": 50,
+          "amazonKeyword": "cat adoption fee donation"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter Surgery",
+          "amount": 100,
+          "amazonKeyword": "low-cost spay neuter voucher"
+        },
+        {
+          "id": "microchip",
+          "label": "Basic Microchip",
+          "amount": 25,
+          "amazonKeyword": "HomeAgain microchip cat"
+        },
+        {
+          "id": "litter-box",
+          "label": "Basic Litter Box",
+          "amount": 15,
+          "amazonKeyword": "basic cat litter pan"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Plastic Food Bowls",
+          "amount": 10,
+          "amazonKeyword": "plastic cat food bowls set"
+        },
+        {
+          "id": "scratch-post",
+          "label": "Simple Scratch Post",
+          "amount": 20,
+          "amazonKeyword": "basic cat scratching post"
+        },
+        {
+          "id": "carrier",
+          "label": "Cardboard Carrier",
+          "amount": 15,
+          "amazonKeyword": "cardboard cat carrier"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Economy Dry Food",
+          "amount": 20,
+          "amazonKeyword": "Friskies dry cat food"
+        },
+        {
+          "id": "litter",
+          "label": "Clay Cat Litter",
+          "amount": 15,
+          "amazonKeyword": "Fresh Step clay cat litter"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Generic Flea Drops",
+          "amount": 10,
+          "amazonKeyword": "generic cat flea treatment"
+        },
+        {
+          "id": "toys",
+          "label": "Basic Cat Toys",
+          "amount": 5,
+          "amazonKeyword": "cat toy balls pack"
+        }
+      ]
+    },
+    "standard": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Rescue Adoption Fee",
+          "amount": 150,
+          "amazonKeyword": "cat rescue adoption fee"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter at Vet",
+          "amount": 200,
+          "amazonKeyword": "cat spay neuter vet"
+        },
+        {
+          "id": "microchip",
+          "label": "Microchip with Registration",
+          "amount": 50,
+          "amazonKeyword": "AKC Reunite microchip cat"
+        },
+        {
+          "id": "litter-box",
+          "label": "Enclosed Litter Box",
+          "amount": 40,
+          "amazonKeyword": "enclosed cat litter box"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Stainless Steel Bowls",
+          "amount": 25,
+          "amazonKeyword": "stainless steel cat bowls"
+        },
+        {
+          "id": "scratch-post",
+          "label": "Multi-Level Scratch Tower",
+          "amount": 60,
+          "amazonKeyword": "cat tree with scratching posts"
+        },
+        {
+          "id": "carrier",
+          "label": "Hard-Sided Carrier",
+          "amount": 40,
+          "amazonKeyword": "hard-sided cat carrier"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Mid-Range Dry Food",
+          "amount": 35,
+          "amazonKeyword": "Purina ONE dry cat food"
+        },
+        {
+          "id": "wet-food",
+          "label": "Canned Wet Food",
+          "amount": 25,
+          "amazonKeyword": "Fancy Feast canned cat food"
+        },
+        {
+          "id": "litter",
+          "label": "Clumping Cat Litter",
+          "amount": 25,
+          "amazonKeyword": "Arm & Hammer clumping cat litter"
+        },
+        {
+          "id": "insurance",
+          "label": "Pet Insurance",
+          "amount": 30,
+          "amazonKeyword": "Nationwide cat insurance"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Branded Flea/Tick Prevention",
+          "amount": 15,
+          "amazonKeyword": "Frontline Plus for cats"
+        },
+        {
+          "id": "toys",
+          "label": "Interactive Cat Toys",
+          "amount": 10,
+          "amazonKeyword": "cat wand toy with feathers"
+        }
+      ]
+    },
+    "premium": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Breeder Fee",
+          "amount": 1000,
+          "amazonKeyword": "purebred cat breeder"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter with Bloodwork",
+          "amount": 400,
+          "amazonKeyword": "comprehensive cat spay neuter"
+        },
+        {
+          "id": "microchip",
+          "label": "GPS Microchip",
+          "amount": 100,
+          "amazonKeyword": "Tractive GPS cat microchip"
+        },
+        {
+          "id": "litter-box",
+          "label": "Self-Cleaning Litter Box",
+          "amount": 200,
+          "amazonKeyword": "Litter-Robot self-cleaning litter box"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Automatic Feeder and Waterer",
+          "amount": 150,
+          "amazonKeyword": "automatic cat feeder and water fountain"
+        },
+        {
+          "id": "scratch-post",
+          "label": "Large Cat Tree Complex",
+          "amount": 200,
+          "amazonKeyword": "large cat tree with condo"
+        },
+        {
+          "id": "carrier",
+          "label": "Premium Travel Carrier",
+          "amount": 100,
+          "amazonKeyword": "Sherpa travel carrier for cats"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Premium Grain-Free Food",
+          "amount": 60,
+          "amazonKeyword": "Orijen cat food grain-free"
+        },
+        {
+          "id": "wet-food",
+          "label": "High-Quality Wet Food",
+          "amount": 50,
+          "amazonKeyword": "Tiki Cat wet food"
+        },
+        {
+          "id": "litter",
+          "label": "Natural Cat Litter",
+          "amount": 40,
+          "amazonKeyword": "World's Best cat litter"
+        },
+        {
+          "id": "insurance",
+          "label": "Comprehensive Pet Insurance",
+          "amount": 50,
+          "amazonKeyword": "Trupanion cat insurance"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Prescription Flea/Tick Prevention",
+          "amount": 25,
+          "amazonKeyword": "Revolution for cats"
+        },
+        {
+          "id": "grooming",
+          "label": "Professional Grooming",
+          "amount": 40,
+          "amazonKeyword": "cat grooming service"
+        },
+        {
+          "id": "toys",
+          "label": "Premium and Smart Toys",
+          "amount": 20,
+          "amazonKeyword": "smart cat toy interactive"
+        }
+      ]
+    }
+  },
+  "small_dog": {
+    "budget": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Shelter Adoption Fee",
+          "amount": 100,
+          "amazonKeyword": "small dog adoption fee"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter Surgery",
+          "amount": 150,
+          "amazonKeyword": "low-cost spay neuter small dog"
+        },
+        {
+          "id": "microchip",
+          "label": "Basic Microchip",
+          "amount": 25,
+          "amazonKeyword": "HomeAgain microchip small dog"
+        },
+        {
+          "id": "crate",
+          "label": "Basic Wire Crate",
+          "amount": 40,
+          "amazonKeyword": "wire dog crate small"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Plastic Food Bowls",
+          "amount": 10,
+          "amazonKeyword": "plastic dog bowls small"
+        },
+        {
+          "id": "leash-collar",
+          "label": "Basic Leash and Collar",
+          "amount": 15,
+          "amazonKeyword": "nylon dog leash and collar set"
+        },
+        {
+          "id": "bed",
+          "label": "Basic Dog Bed",
+          "amount": 20,
+          "amazonKeyword": "basic small dog bed"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Economy Dry Food",
+          "amount": 25,
+          "amazonKeyword": "Pedigree dry dog food small breed"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Generic Flea Drops",
+          "amount": 10,
+          "amazonKeyword": "generic small dog flea treatment"
+        },
+        {
+          "id": "toys",
+          "label": "Basic Dog Toys",
+          "amount": 5,
+          "amazonKeyword": "small dog toy balls pack"
+        }
+      ]
+    },
+    "standard": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Rescue Adoption Fee",
+          "amount": 300,
+          "amazonKeyword": "small dog rescue adoption"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter at Vet",
+          "amount": 250,
+          "amazonKeyword": "small dog spay neuter vet"
+        },
+        {
+          "id": "microchip",
+          "label": "Microchip with Registration",
+          "amount": 50,
+          "amazonKeyword": "AKC Reunite microchip small dog"
+        },
+        {
+          "id": "crate",
+          "label": "Soft-Sided Crate",
+          "amount": 60,
+          "amazonKeyword": "soft-sided dog crate small"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Stainless Steel Bowls",
+          "amount": 25,
+          "amazonKeyword": "stainless steel dog bowls small"
+        },
+        {
+          "id": "leash-collar",
+          "label": "Adjustable Leash and Harness",
+          "amount": 30,
+          "amazonKeyword": "dog harness and leash set small"
+        },
+        {
+          "id": "bed",
+          "label": "Orthopedic Dog Bed",
+          "amount": 50,
+          "amazonKeyword": "orthopedic small dog bed"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Mid-Range Dry Food",
+          "amount": 40,
+          "amazonKeyword": "Purina Pro Plan small breed dog food"
+        },
+        {
+          "id": "wet-food",
+          "label": "Canned Wet Food",
+          "amount": 20,
+          "amazonKeyword": "Cesar wet dog food small breed"
+        },
+        {
+          "id": "insurance",
+          "label": "Pet Insurance",
+          "amount": 35,
+          "amazonKeyword": "Nationwide small dog insurance"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Branded Flea/Tick Prevention",
+          "amount": 15,
+          "amazonKeyword": "Frontline Plus for small dogs"
+        },
+        {
+          "id": "toys",
+          "label": "Interactive Dog Toys",
+          "amount": 10,
+          "amazonKeyword": "interactive dog puzzle toy small"
+        }
+      ]
+    },
+    "premium": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Breeder Fee",
+          "amount": 2000,
+          "amazonKeyword": "purebred small dog breeder"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter with Bloodwork",
+          "amount": 500,
+          "amazonKeyword": "comprehensive small dog spay neuter"
+        },
+        {
+          "id": "microchip",
+          "label": "GPS Microchip",
+          "amount": 100,
+          "amazonKeyword": "Tractive GPS small dog microchip"
+        },
+        {
+          "id": "crate",
+          "label": "Designer Crate",
+          "amount": 150,
+          "amazonKeyword": "designer dog crate small"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Automatic Feeder and Waterer",
+          "amount": 150,
+          "amazonKeyword": "automatic dog feeder small breed"
+        },
+        {
+          "id": "leash-collar",
+          "label": "Premium Leash and Collar Set",
+          "amount": 80,
+          "amazonKeyword": "leather dog leash and collar small"
+        },
+        {
+          "id": "bed",
+          "label": "Luxury Dog Bed",
+          "amount": 100,
+          "amazonKeyword": "luxury small dog bed memory foam"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Premium Grain-Free Food",
+          "amount": 70,
+          "amazonKeyword": "Orijen small breed dog food"
+        },
+        {
+          "id": "wet-food",
+          "label": "High-Quality Wet Food",
+          "amount": 40,
+          "amazonKeyword": "Merrick wet dog food small breed"
+        },
+        {
+          "id": "insurance",
+          "label": "Comprehensive Pet Insurance",
+          "amount": 60,
+          "amazonKeyword": "Trupanion small dog insurance"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Prescription Flea/Tick Prevention",
+          "amount": 25,
+          "amazonKeyword": "Simparica for small dogs"
+        },
+        {
+          "id": "grooming",
+          "label": "Professional Grooming",
+          "amount": 50,
+          "amazonKeyword": "small dog grooming service"
+        },
+        {
+          "id": "toys",
+          "label": "Premium and Smart Toys",
+          "amount": 20,
+          "amazonKeyword": "smart dog toy interactive small"
+        }
+      ]
+    }
+  },
+  "medium_dog": {
+    "budget": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Shelter Adoption Fee",
+          "amount": 150,
+          "amazonKeyword": "medium dog adoption fee"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter Surgery",
+          "amount": 200,
+          "amazonKeyword": "low-cost spay neuter medium dog"
+        },
+        {
+          "id": "microchip",
+          "label": "Basic Microchip",
+          "amount": 25,
+          "amazonKeyword": "HomeAgain microchip medium dog"
+        },
+        {
+          "id": "crate",
+          "label": "Basic Wire Crate",
+          "amount": 60,
+          "amazonKeyword": "wire dog crate medium"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Plastic Food Bowls",
+          "amount": 15,
+          "amazonKeyword": "plastic dog bowls medium"
+        },
+        {
+          "id": "leash-collar",
+          "label": "Basic Leash and Collar",
+          "amount": 20,
+          "amazonKeyword": "nylon dog leash and collar medium"
+        },
+        {
+          "id": "bed",
+          "label": "Basic Dog Bed",
+          "amount": 30,
+          "amazonKeyword": "basic medium dog bed"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Economy Dry Food",
+          "amount": 35,
+          "amazonKeyword": "Pedigree dry dog food medium breed"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Generic Flea Drops",
+          "amount": 15,
+          "amazonKeyword": "generic medium dog flea treatment"
+        },
+        {
+          "id": "toys",
+          "label": "Basic Dog Toys",
+          "amount": 10,
+          "amazonKeyword": "medium dog toy balls pack"
+        }
+      ]
+    },
+    "standard": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Rescue Adoption Fee",
+          "amount": 400,
+          "amazonKeyword": "medium dog rescue adoption"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter at Vet",
+          "amount": 300,
+          "amazonKeyword": "medium dog spay neuter vet"
+        },
+        {
+          "id": "microchip",
+          "label": "Microchip with Registration",
+          "amount": 50,
+          "amazonKeyword": "AKC Reunite microchip medium dog"
+        },
+        {
+          "id": "crate",
+          "label": "Soft-Sided Crate",
+          "amount": 80,
+          "amazonKeyword": "soft-sided dog crate medium"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Stainless Steel Bowls",
+          "amount": 30,
+          "amazonKeyword": "stainless steel dog bowls medium"
+        },
+        {
+          "id": "leash-collar",
+          "label": "Adjustable Leash and Harness",
+          "amount": 40,
+          "amazonKeyword": "dog harness and leash set medium"
+        },
+        {
+          "id": "bed",
+          "label": "Orthopedic Dog Bed",
+          "amount": 70,
+          "amazonKeyword": "orthopedic medium dog bed"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Mid-Range Dry Food",
+          "amount": 50,
+          "amazonKeyword": "Purina Pro Plan medium breed dog food"
+        },
+        {
+          "id": "wet-food",
+          "label": "Canned Wet Food",
+          "amount": 30,
+          "amazonKeyword": "Cesar wet dog food medium breed"
+        },
+        {
+          "id": "insurance",
+          "label": "Pet Insurance",
+          "amount": 40,
+          "amazonKeyword": "Nationwide medium dog insurance"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Branded Flea/Tick Prevention",
+          "amount": 20,
+          "amazonKeyword": "Frontline Plus for medium dogs"
+        },
+        {
+          "id": "toys",
+          "label": "Interactive Dog Toys",
+          "amount": 15,
+          "amazonKeyword": "interactive dog puzzle toy medium"
+        }
+      ]
+    },
+    "premium": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Breeder Fee",
+          "amount": 2500,
+          "amazonKeyword": "purebred medium dog breeder"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter with Bloodwork",
+          "amount": 600,
+          "amazonKeyword": "comprehensive medium dog spay neuter"
+        },
+        {
+          "id": "microchip",
+          "label": "GPS Microchip",
+          "amount": 100,
+          "amazonKeyword": "Tractive GPS medium dog microchip"
+        },
+        {
+          "id": "crate",
+          "label": "Designer Crate",
+          "amount": 200,
+          "amazonKeyword": "designer dog crate medium"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Automatic Feeder and Waterer",
+          "amount": 200,
+          "amazonKeyword": "automatic dog feeder medium breed"
+        },
+        {
+          "id": "leash-collar",
+          "label": "Premium Leash and Collar Set",
+          "amount": 100,
+          "amazonKeyword": "leather dog leash and collar medium"
+        },
+        {
+          "id": "bed",
+          "label": "Luxury Dog Bed",
+          "amount": 150,
+          "amazonKeyword": "luxury medium dog bed memory foam"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Premium Grain-Free Food",
+          "amount": 80,
+          "amazonKeyword": "Orijen medium breed dog food"
+        },
+        {
+          "id": "wet-food",
+          "label": "High-Quality Wet Food",
+          "amount": 50,
+          "amazonKeyword": "Merrick wet dog food medium breed"
+        },
+        {
+          "id": "insurance",
+          "label": "Comprehensive Pet Insurance",
+          "amount": 70,
+          "amazonKeyword": "Trupanion medium dog insurance"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Prescription Flea/Tick Prevention",
+          "amount": 30,
+          "amazonKeyword": "Simparica for medium dogs"
+        },
+        {
+          "id": "grooming",
+          "label": "Professional Grooming",
+          "amount": 60,
+          "amazonKeyword": "medium dog grooming service"
+        },
+        {
+          "id": "toys",
+          "label": "Premium and Smart Toys",
+          "amount": 25,
+          "amazonKeyword": "smart dog toy interactive medium"
+        }
+      ]
+    }
+  },
+  "large_dog": {
+    "budget": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Shelter Adoption Fee",
+          "amount": 200,
+          "amazonKeyword": "large dog adoption fee"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter Surgery",
+          "amount": 250,
+          "amazonKeyword": "low-cost spay neuter large dog"
+        },
+        {
+          "id": "microchip",
+          "label": "Basic Microchip",
+          "amount": 25,
+          "amazonKeyword": "HomeAgain microchip large dog"
+        },
+        {
+          "id": "crate",
+          "label": "Basic Wire Crate",
+          "amount": 80,
+          "amazonKeyword": "wire dog crate large"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Plastic Food Bowls",
+          "amount": 20,
+          "amazonKeyword": "plastic dog bowls large"
+        },
+        {
+          "id": "leash-collar",
+          "label": "Basic Leash and Collar",
+          "amount": 25,
+          "amazonKeyword": "nylon dog leash and collar large"
+        },
+        {
+          "id": "bed",
+          "label": "Basic Dog Bed",
+          "amount": 40,
+          "amazonKeyword": "basic large dog bed"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Economy Dry Food",
+          "amount": 50,
+          "amazonKeyword": "Pedigree dry dog food large breed"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Generic Flea Drops",
+          "amount": 20,
+          "amazonKeyword": "generic large dog flea treatment"
+        },
+        {
+          "id": "toys",
+          "label": "Basic Dog Toys",
+          "amount": 15,
+          "amazonKeyword": "large dog toy balls pack"
+        }
+      ]
+    },
+    "standard": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Rescue Adoption Fee",
+          "amount": 500,
+          "amazonKeyword": "large dog rescue adoption"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter at Vet",
+          "amount": 400,
+          "amazonKeyword": "large dog spay neuter vet"
+        },
+        {
+          "id": "microchip",
+          "label": "Microchip with Registration",
+          "amount": 50,
+          "amazonKeyword": "AKC Reunite microchip large dog"
+        },
+        {
+          "id": "crate",
+          "label": "Soft-Sided Crate",
+          "amount": 100,
+          "amazonKeyword": "soft-sided dog crate large"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Stainless Steel Bowls",
+          "amount": 40,
+          "amazonKeyword": "stainless steel dog bowls large"
+        },
+        {
+          "id": "leash-collar",
+          "label": "Adjustable Leash and Harness",
+          "amount": 50,
+          "amazonKeyword": "dog harness and leash set large"
+        },
+        {
+          "id": "bed",
+          "label": "Orthopedic Dog Bed",
+          "amount": 100,
+          "amazonKeyword": "orthopedic large dog bed"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Mid-Range Dry Food",
+          "amount": 70,
+          "amazonKeyword": "Purina Pro Plan large breed dog food"
+        },
+        {
+          "id": "wet-food",
+          "label": "Canned Wet Food",
+          "amount": 40,
+          "amazonKeyword": "Cesar wet dog food large breed"
+        },
+        {
+          "id": "insurance",
+          "label": "Pet Insurance",
+          "amount": 50,
+          "amazonKeyword": "Nationwide large dog insurance"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Branded Flea/Tick Prevention",
+          "amount": 25,
+          "amazonKeyword": "Frontline Plus for large dogs"
+        },
+        {
+          "id": "toys",
+          "label": "Interactive Dog Toys",
+          "amount": 20,
+          "amazonKeyword": "interactive dog puzzle toy large"
+        }
+      ]
+    },
+    "premium": {
+      "oneTime": [
+        {
+          "id": "adoption-fee",
+          "label": "Breeder Fee",
+          "amount": 3000,
+          "amazonKeyword": "purebred large dog breeder"
+        },
+        {
+          "id": "spay-neuter",
+          "label": "Spay/Neuter with Bloodwork",
+          "amount": 800,
+          "amazonKeyword": "comprehensive large dog spay neuter"
+        },
+        {
+          "id": "microchip",
+          "label": "GPS Microchip",
+          "amount": 100,
+          "amazonKeyword": "Tractive GPS large dog microchip"
+        },
+        {
+          "id": "crate",
+          "label": "Designer Crate",
+          "amount": 250,
+          "amazonKeyword": "designer dog crate large"
+        },
+        {
+          "id": "food-bowls",
+          "label": "Automatic Feeder and Waterer",
+          "amount": 250,
+          "amazonKeyword": "automatic dog feeder large breed"
+        },
+        {
+          "id": "leash-collar",
+          "label": "Premium Leash and Collar Set",
+          "amount": 120,
+          "amazonKeyword": "leather dog leash and collar large"
+        },
+        {
+          "id": "bed",
+          "label": "Luxury Dog Bed",
+          "amount": 200,
+          "amazonKeyword": "luxury large dog bed memory foam"
+        }
+      ],
+      "monthly": [
+        {
+          "id": "dry-food",
+          "label": "Premium Grain-Free Food",
+          "amount": 100,
+          "amazonKeyword": "Orijen large breed dog food"
+        },
+        {
+          "id": "wet-food",
+          "label": "High-Quality Wet Food",
+          "amount": 60,
+          "amazonKeyword": "Merrick wet dog food large breed"
+        },
+        {
+          "id": "insurance",
+          "label": "Comprehensive Pet Insurance",
+          "amount": 80,
+          "amazonKeyword": "Trupanion large dog insurance"
+        },
+        {
+          "id": "flea-prevention",
+          "label": "Prescription Flea/Tick Prevention",
+          "amount": 35,
+          "amazonKeyword": "Simparica for large dogs"
+        },
+        {
+          "id": "grooming",
+          "label": "Professional Grooming",
+          "amount": 80,
+          "amazonKeyword": "large dog grooming service"
+        },
+        {
+          "id": "toys",
+          "label": "Premium and Smart Toys",
+          "amount": 30,
+          "amazonKeyword": "smart dog toy interactive large"
+        }
+      ]
+    }
+  }
+}
