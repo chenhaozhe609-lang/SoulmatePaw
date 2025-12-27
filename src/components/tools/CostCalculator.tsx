@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
 import { 
   PieChart, 
   Pie, 
@@ -16,7 +15,6 @@ import {
   DollarSign, 
   Wallet, 
   Info,
-  ChevronDown,
   ShoppingBag,
   ExternalLink
 } from 'lucide-react';
@@ -86,7 +84,14 @@ const getAmazonLink = (keyword: string) => {
   return `https://www.amazon.com/s?k=${encodedKeyword}&tag=${tag}`;
 };
 
-export default function CostCalculator() {
+interface CostCalculatorProps {
+  initialBreed?: {
+    name: string;
+    size: PetSize;
+  };
+}
+
+export default function CostCalculator({ initialBreed }: CostCalculatorProps) {
   const searchParams = useSearchParams();
   
   const {
@@ -98,10 +103,20 @@ export default function CostCalculator() {
     oneTimeTotal,
     monthlyTotal,
     firstYearTotal,
-  } = useCostCalculator();
+  } = useCostCalculator(initialBreed?.size);
 
   // --- Auto-Select based on URL Params ---
   useEffect(() => {
+    // If initialBreed is provided, we don't need to check params, 
+    // unless we want params to override? 
+    // Usually initialBreed (from pSEO page) should take precedence or match.
+    // However, if the user navigates to the generic tool page, initialBreed is undefined.
+    
+    if (initialBreed) {
+        setSelectedSize(initialBreed.size);
+        return;
+    }
+
     const sizeParam = searchParams.get('size');
     if (sizeParam) {
       // Map 'small', 'medium', 'large' to our specific keys if needed, 
@@ -121,7 +136,7 @@ export default function CostCalculator() {
         setSelectedSize(mappedSize);
       }
     }
-  }, [searchParams, setSelectedSize]);
+  }, [searchParams, setSelectedSize, initialBreed]);
 
   // Prepare Data for Chart
   const chartData = currentBreakdown.monthly.map((item) => ({
@@ -203,6 +218,19 @@ export default function CostCalculator() {
       {/* --- 1. Control Panel --- */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 space-y-6">
         
+        {/* Dynamic Header for Breed Specific Calculation */}
+        {initialBreed && (
+           <div className="bg-primary/5 border border-primary/10 rounded-xl p-4 flex items-center gap-3 mb-4">
+              <div className="bg-primary/10 p-2 rounded-full text-primary">
+                 <PawPrint size={20} />
+              </div>
+              <div>
+                 <p className="text-sm text-primary font-bold uppercase tracking-wider">Calculating for</p>
+                 <h2 className="text-xl font-bold text-foreground font-heading">{initialBreed.name}</h2>
+              </div>
+           </div>
+        )}
+
         {/* Pet Size Selector */}
         <div className="space-y-3">
           <label className="text-sm font-medium text-gray-500 uppercase tracking-wider flex items-center gap-2">

@@ -5,9 +5,9 @@ import rawCostData from '@/constants/generatedCostData.json';
 // Cast the raw JSON to the strict CostData type to ensure type safety
 const costData = rawCostData as unknown as CostData;
 
-export function useCostCalculator() {
+export function useCostCalculator(initialSize: PetSize = 'medium_dog') {
   // State Management
-  const [selectedSize, setSelectedSize] = useState<PetSize>('medium_dog');
+  const [selectedSize, setSelectedSize] = useState<PetSize>(initialSize);
   const [selectedBudget, setSelectedBudget] = useState<BudgetLevel>('standard');
 
   // Calculation Logic

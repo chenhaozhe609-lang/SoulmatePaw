@@ -13,27 +13,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/match`, // Corrected from /quiz to /match based on project structure
+      url: `${baseUrl}/match`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/tools/cost-calculator`, // [V3.0 New]
+      url: `${baseUrl}/tools/cost-calculator`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 0.9, // High priority for monetization
+      priority: 0.9,
     },
     {
-      url: `${baseUrl}/tools/name-generator`, // [V3.0 New]
+      url: `${baseUrl}/tools/name-generator`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/animunity`, // [V3.0 New Community]
+      url: `${baseUrl}/animunity`,
       lastModified: new Date(),
-      changeFrequency: 'daily', // Frequent updates expected
+      changeFrequency: 'daily',
       priority: 0.8,
     },
     {
@@ -45,18 +45,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // 2. Fetch Dynamic Routes from Supabase
-  // Fetch breed_name to generate slugs as slug column does not exist
   const { data: breeds } = await supabase
     .from('pet_breeds')
     .select('breed_name');
 
-  const dynamicRoutes: MetadataRoute.Sitemap = (breeds || []).map((breed) => ({
-    url: `${baseUrl}/breed/${breed.breed_name.toLowerCase().replace(/\s+/g, '-')}`,
-    lastModified: new Date(), // Fallback as updated_at is not available in current schema
+  // Helper to generate slug
+  const toSlug = (name: string) => name.toLowerCase().replace(/\s+/g, '-');
+
+  // Breed Details Pages
+  const breedRoutes: MetadataRoute.Sitemap = (breeds || []).map((breed) => ({
+    url: `${baseUrl}/breed/${toSlug(breed.breed_name)}`,
+    lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 0.6,
   }));
 
+  // Cost Calculator Pages (Programmatic SEO)
+  const costRoutes: MetadataRoute.Sitemap = (breeds || []).map((breed) => ({
+    url: `${baseUrl}/cost/${toSlug(breed.breed_name)}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.8, // Higher priority as these are high-value tool pages
+  }));
+
   // 3. Merge and Return
-  return [...staticRoutes, ...dynamicRoutes];
+  return [...staticRoutes, ...breedRoutes, ...costRoutes];
 }
